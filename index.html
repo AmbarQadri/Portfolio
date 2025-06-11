@@ -832,6 +832,7 @@
 
 
         <!--==================== CONTACT ME ====================-->
+        <!--==================== CONTACT ME ====================-->
         <section class="contact section" id="contact">
             <h2 class="section__title">Contact Me</h2>
             <span class="section__subtitle">Let’s Connect & Collaborate</span>
@@ -842,7 +843,7 @@
                         <i class="uil uil-phone contact__icon"></i>
                         <div>
                             <h3 class="contact__title">Call Me</h3>
-                            <span class="contact__subtitle">+91 902235 5499</span> <!-- Replace with your number -->
+                            <span class="contact__subtitle">+91 90223 55499</span>
                         </div>
                     </div>
                     <div class="contact__information">
@@ -850,7 +851,6 @@
                         <div>
                             <h3 class="contact__title">Email</h3>
                             <span class="contact__subtitle">moambarqadri12@gmail.com</span>
-                            <!-- Replace with your email -->
                         </div>
                     </div>
                     <div class="contact__information">
@@ -873,7 +873,7 @@
                             <input type="email" name="email" class="contact__input" required />
                         </div>
                         <div class="contact__content">
-                            <label class="contact__label">Subject</label>
+                            <label class="contact__label">Project</label>
                             <input type="text" name="project" class="contact__input" />
                         </div>
                         <div class="contact__content">
@@ -890,6 +890,29 @@
                 </form>
             </div>
         </section>
+
+        <!-- ==================== EMAILJS Script ==================== -->
+        <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+        <script type="text/javascript">
+            (function () {
+                emailjs.init("RU2czVS7gUyDmfl2X"); // ✅ Replace with your EmailJS Public Key
+            })();
+
+            document.getElementById("contact-form").addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                emailjs.sendForm("service_ww4jado", "template_4tjr35g", this).then(
+                    function () {
+                        alert("✅ Message sent successfully!");
+                        document.getElementById("contact-form").reset();
+                    },
+                    function (error) {
+                        alert("❌ Failed to send message.\n" + JSON.stringify(error));
+                    }
+                );
+            });
+        </script>
+
 
 
     </main>
@@ -939,35 +962,6 @@
         <i class="uil uil-arrow-up scrollup__icon"></i>
     </a>
 
-    <script>
-        document.getElementById("contact-form").addEventListener("submit", async function (e) {
-            e.preventDefault();
-
-            const form = e.target;
-            const formData = {
-                name: form.name.value,
-                email: form.email.value,
-                project: form.project.value,
-                message: form.message.value,
-            };
-
-            try {
-                const response = await fetch("http://localhost:5000/contact", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(formData),
-                });
-
-                const result = await response.json();
-                alert(result.message);
-                form.reset();
-            } catch (err) {
-                alert("Failed to send message. Please try again later.");
-                console.error(err);
-            }
-        });
-    </script>
-
 
     <!--==================== SWIPER JS ====================-->
     <script src="./assets/js/swiper-bundle.min.js"></script>
@@ -983,33 +977,6 @@
         }
         window.addEventListener('scroll', scrollUp);
     </script>
-
-    <!--==================== FORM SUBMISSION ====================-->
-
-    <script>
-        document.getElementById("contact-form").addEventListener("submit", async function (e) {
-            e.preventDefault();
-
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-
-            try {
-                const res = await fetch("/api/contact", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data)
-                });
-
-                const result = await res.json();
-                alert(result.message);
-
-                this.reset();
-            } catch (err) {
-                alert("Something went wrong!");
-            }
-        });
-    </script>
-
 
 </body>
 
